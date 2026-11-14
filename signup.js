@@ -41,15 +41,15 @@
     '.su-l{margin-top:14px;font-weight:800;font-size:15.5px}.su-l:first-child{margin-top:0}' +
     '.su-tg{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px}' +
     '.su-tg label{position:relative}.su-tg input{position:absolute;opacity:0;inset:0}' +
-    '.su-tg span{display:block;padding:11px 0;text-align:center;border:2px solid var(--ink);border-radius:12px;font-weight:800;font-size:15.5px;cursor:pointer}' +
+    '.su-tg span{display:block;padding:11px 0;text-align:center;border:2px solid var(--ink);border-radius:var(--r-ctl,12px);font-weight:800;font-size:15.5px;cursor:pointer}' +
     '.su-tg input:checked+span{background:var(--ink);color:var(--card)}.su-tg input:focus-visible+span{outline:3px solid var(--pen);outline-offset:2px}' +
-    '.su input[type=email],.su input[type=tel]{margin-top:10px;margin-top:6px;padding:13px 14px;border:2px solid var(--ink);border-radius:12px;font:inherit;font-size:16px;background:var(--card);color:var(--ink)}' +
+    '.su input[type=email],.su input[type=tel]{margin-top:10px;margin-top:6px;padding:13px 14px;border:2px solid var(--ink);border-radius:var(--r-ctl,12px);font:inherit;font-size:16px;background:var(--card);color:var(--ink)}' +
     '.su input:focus-visible{outline:3px solid var(--pen);outline-offset:1px}' +
     '.su-r{color:var(--pen);font-size:13px;font-weight:800}.su-o{color:var(--muted);font-size:13px;font-weight:700}' +
     '.su-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
     '.su-c{margin-top:18px;display:flex;gap:10px;align-items:flex-start;font-weight:700;font-size:15.5px}' +
     '.su-c input{width:20px;height:20px;margin-top:3px;accent-color:var(--pen);flex:none}' +
-    '.su-t{margin-top:8px;padding:12px 14px;border-radius:12px;background:var(--tint);color:var(--muted);font-size:13.5px;line-height:1.6}' +
+    '.su-t{margin-top:8px;padding:12px 14px;border-radius:var(--r-ctl,12px);background:var(--tint);color:var(--muted);font-size:13.5px;line-height:1.6}' +
     '.su-t a{color:var(--ink);font-weight:700}' +
     '.su-e{margin-top:12px;color:var(--pen);font-weight:700;font-size:15px}' +
     '.su-b{margin-top:16px;border:0;cursor:pointer;font:inherit;font-weight:800;padding:14px 18px;font-size:17px;text-align:center}' +
