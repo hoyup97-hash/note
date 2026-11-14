@@ -123,4 +123,17 @@ ul.idx span{display:block;color:var(--pencil);font-size:15px;margin-top:2px}
   .q h1,.lead h1{font-size:27px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-thead th{white-space:nowrap;width:39.5%}
+table.lab thead th{white-space:nowrap;width:39.5%}
+thead td{border-bottom:1.5px solid var(--ink)}
+table:not(.lab) thead th{white-space:nowrap}
+td{word-break:keep-all}
+
+/* 점 목록 (순서 없는 항목) */
+ul.dots{margin-top:6px;list-style:none}
+ul.dots li{position:relative;padding:12px 0 12px 22px;border-bottom:1px solid var(--rule);font-size:18px}
+ul.dots li::before{content:"";position:absolute;left:4px;top:1.15em;width:7px;height:7px;border-radius:50%;background:var(--pencil)}
+.sol > p + .tw,.sol > .tw + p,.sol > p + ul,.sol > ul + p{margin-top:12px}
+tbody th:only-child{width:auto}
+
+/* FP 영업노트: 같은 공책, 여백선과 로고만 초록 */
+body.fp{--margin:#9CCBB5}

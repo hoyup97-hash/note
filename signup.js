@@ -2,20 +2,34 @@
    저장소: 구글 폼(응답 시트에 받은 시간이 자동 기록됨)
    CONFIG에 폼 주소와 칸 번호를 채우면 작동해요. */
 (function () {
-  var CONFIG = {
-    action: "https://docs.google.com/forms/d/e/1FAIpQLSeH8gBYw6WkXQet6aJTY3Hz2sYBwUD6BNIB354UYbIb9EaprA/formResponse",
-    email: "entry.1031617953",
-    phone: "entry.1567260345",
-    src: "entry.332361773"
+  /* 계정마다 폼과 시트를 따로 둬요. data-account="fp"면 FP 영업노트 폼 */
+  var FIELDS = { email: "entry.1031617953", phone: "entry.1567260345", src: "entry.332361773" };
+  var ACCOUNTS = {
+    consumer: {
+      action: "https://docs.google.com/forms/d/e/1FAIpQLSeH8gBYw6WkXQet6aJTY3Hz2sYBwUD6BNIB354UYbIb9EaprA/formResponse",
+      title: "1:1 보험 점검, 열리면 알려드려요",
+      lead: "내 보험이 겹치는지 같이 봐 드리는 서비스를 준비 중이에요.",
+      purpose: "오픈 알림만, 남에게 넘기지 않음",
+      done: "오픈하면 가장 먼저 알려드릴게요."
+    },
+    fp: {
+      action: "https://docs.google.com/forms/d/e/1FAIpQLSc201A2ZhjM5-fRwe2Ehip2329n6zyJfvDfE3B1V1RlqNv2HA/formResponse",
+      title: "제도가 바뀌면 먼저 알려드려요",
+      lead: "수수료, 심의, 판매규제가 바뀌면 정리해서 보내 드려요.",
+      purpose: "제도 브리핑 알림만, 남에게 넘기지 않음",
+      done: "새 브리핑이 나오면 보내 드릴게요."
+    }
   };
 
   var box = document.getElementById("signup");
   if (!box) return;
+  var A = ACCOUNTS[box.dataset.account] || ACCOUNTS.consumer;
+  var CONFIG = { action: A.action, email: FIELDS.email, phone: FIELDS.phone, src: FIELDS.src };
   var src = new URLSearchParams(location.search).get("src") || box.dataset.src || "direct";
 
   box.innerHTML =
-    '<h2>1:1 보험 점검, 열리면 알려드려요</h2>' +
-    '<p>내 보험이 겹치는지 같이 봐 드리는 서비스를 준비 중이에요.</p>' +
+    '<h2>' + A.title + '</h2>' +
+    '<p>' + A.lead + '</p>' +
     '<form class="su card" novalidate>' +
       '<div class="su-l" id="su-how">어떻게 알려드릴까요?</div>' +
       '<div class="su-tg" role="radiogroup" aria-labelledby="su-how">' +
@@ -27,7 +41,7 @@
       '<label class="su-c"><input type="checkbox" name="agree" required> ' +
         '<span>개인정보 수집과 이용에 동의해요. <span class="su-r">필수</span></span></label>' +
       '<div class="su-t">수집: 이메일 또는 휴대폰 번호<br>' +
-        '목적: 오픈 알림만, 남에게 넘기지 않음<br>' +
+        '목적: ' + A.purpose + '<br>' +
         '보관: 알림 후 바로 삭제, 최대 6개월<br>' +
         '동의하지 않으면 알림을 받을 수 없어요.<br>' +
         '<a href="/note/privacy/">개인정보 처리방침 보기</a></div>' +
@@ -98,7 +112,7 @@
 
     fetch(CONFIG.action, { method: "POST", mode: "no-cors", body: body })
       .then(function () {
-        form.outerHTML = '<div class="su-done card"><b>받았습니다!</b><span>오픈하면 가장 먼저 알려드릴게요.</span></div>';
+        form.outerHTML = '<div class="su-done card"><b>받았습니다!</b><span>' + A.done + '</span></div>';
       })
       .catch(function () {
         btn.disabled = false; btn.textContent = "알림 신청하기";
