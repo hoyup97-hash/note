@@ -60,26 +60,29 @@ b{font-weight:750}
 .ans mark{background:linear-gradient(transparent 58%,var(--hl) 58%);color:inherit;padding:0 2px}
 
 /* 풀이 */
-.sol{margin-top:46px}
-.sol > h2{font-size:22px;line-height:1.4;font-weight:800;letter-spacing:-.6px;padding-bottom:8px;border-bottom:1.5px solid var(--ink);display:flex;gap:10px;align-items:baseline}
-.sol > h2 .n{font-size:15px;font-weight:700;color:var(--pencil);flex:none}
+.sol{margin-top:64px}
+.sol > h2{font-size:23px;line-height:1.4;font-weight:800;letter-spacing:-.6px;padding-bottom:10px;border-bottom:2.5px solid var(--ink)}
+/* 풀이 번호: 공책 색인 탭처럼 */
+.sol > h2 .n{display:table;margin-bottom:10px;padding:4px 12px;border-radius:6px;background:var(--ink);color:var(--paper);font-size:14.5px;font-weight:700;letter-spacing:0}
 .sol > p{margin-top:14px}
+.sol.ref{margin-top:56px}
+.sol.ref > h2{font-size:17px;border-bottom-width:1.5px}
 
 ol.steps{margin-top:6px;list-style:none;counter-reset:s}
-ol.steps li{counter-increment:s;position:relative;padding:14px 0 14px 34px;border-bottom:1px solid var(--rule)}
+ol.steps li{counter-increment:s;position:relative;padding:14px 0 14px 34px;border-bottom:1px solid var(--rule);font-size:18px}
 ol.steps li::before{content:counter(s) ".";position:absolute;left:0;top:14px;font-weight:800;color:var(--pencil);width:24px}
 
 .btn{display:inline-flex;align-items:center;min-height:46px;margin-top:10px;padding:0 18px;border-radius:var(--r-ctl);background:var(--ink);color:var(--paper);font-weight:700;font-size:16px;text-decoration:none}
 
 /* 비교표 */
 .tw{margin-top:16px;overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:16px;line-height:1.6}
+table{width:100%;border-collapse:collapse;font-size:16.5px;line-height:1.55}
 th,td{padding:12px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
 thead th{border-bottom:1.5px solid var(--ink);font-weight:800;font-size:16.5px}
-tbody th{font-weight:700;color:var(--pencil);font-size:15px;width:23%;padding-left:0}
+tbody th{font-weight:700;color:var(--pencil);font-size:15px;width:21%;padding-left:0}
 
 /* 틀리기 쉬운 곳: 여백에 빨간 펜 */
-.trap{margin-top:40px;position:relative;padding:4px 0 4px 18px;border-left:3px solid var(--red)}
+.trap{margin-top:56px;position:relative;padding:4px 0 4px 18px;border-left:3px solid var(--red)}
 .trap .pen{display:block;font-size:30px;margin-bottom:4px}
 
 /* 출처 */
@@ -120,3 +123,4 @@ ul.idx span{display:block;color:var(--pencil);font-size:15px;margin-top:2px}
   .q h1,.lead h1{font-size:27px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+thead th{white-space:nowrap;width:39.5%}

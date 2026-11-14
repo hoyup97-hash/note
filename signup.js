@@ -14,8 +14,8 @@
   var src = new URLSearchParams(location.search).get("src") || box.dataset.src || "direct";
 
   box.innerHTML =
-    '<h2>1:1 보험 점검, 오픈하면 알려드릴게요</h2>' +
-    '<p>내 보험이 겹치거나 새는 곳은 없는지 같이 봐 드리는 서비스를 준비하고 있어요. 열리면 가장 먼저 알려드릴게요.</p>' +
+    '<h2>1:1 보험 점검, 열리면 알려드려요</h2>' +
+    '<p>내 보험이 겹치는지 같이 봐 드리는 서비스를 준비 중이에요.</p>' +
     '<form class="su card" novalidate>' +
       '<div class="su-l" id="su-how">어떻게 알려드릴까요?</div>' +
       '<div class="su-tg" role="radiogroup" aria-labelledby="su-how">' +
@@ -26,10 +26,10 @@
       '<input class="su-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
       '<label class="su-c"><input type="checkbox" name="agree" required> ' +
         '<span>개인정보 수집과 이용에 동의해요. <span class="su-r">필수</span></span></label>' +
-      '<div class="su-t">수집 항목: 이메일 또는 휴대폰 번호 중 고르신 하나<br>' +
-        '이용 목적: 서비스 오픈 알림 발송, 다른 목적으로 쓰거나 남에게 넘기지 않아요<br>' +
-        '보관 기간: 알림을 보낸 뒤 바로 지우고, 늦어도 신청일로부터 6개월 뒤 지워요<br>' +
-        '동의하지 않을 수 있어요. 이 경우 오픈 알림을 받을 수 없어요.<br>' +
+      '<div class="su-t">수집: 이메일 또는 휴대폰 번호<br>' +
+        '목적: 오픈 알림만, 남에게 넘기지 않음<br>' +
+        '보관: 알림 후 바로 삭제, 최대 6개월<br>' +
+        '동의하지 않으면 알림을 받을 수 없어요.<br>' +
         '<a href="/note/privacy/">개인정보 처리방침 보기</a></div>' +
       '<p class="su-e" role="alert" hidden></p>' +
       '<button class="btn su-b" type="submit">알림 신청하기</button>' +
