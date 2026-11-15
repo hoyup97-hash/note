@@ -5,12 +5,153 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>가입만 끝나면 끝일까? | FP 영업노트</title>
 <meta name="description" content="금소법 6대 판매원칙을 어기면 고객이 5년 안에 계약을 해지할 수 있어요.">
-<link rel="stylesheet" href="/note/style.css">
+<style id="base">
+/* 월급 오답노트 페이지 공통
+   컨셉: 공책에 적은 오답노트. 인쇄된 글은 볼펜(파란 검정), 고친 곳만 빨간 펜 손글씨.
+   장치는 두 가지만: 왼쪽 여백선(공책), 빨간 펜(정정). 카드 상자, 그림자, 그라데이션 없음. */
+@import url("/note/fonts/pretendard.css");
+@import url("/note/fonts/pen.css");
+
+:root{
+  --paper: #F6F8FB;   /* 공책 종이, 살짝 푸른 흰색 */
+  --rule:  #D3DCE8;   /* 공책 가로줄 */
+  --margin:#E7A9A4;   /* 공책 왼쪽 여백선 */
+  --ink:   #1C2A44;   /* 볼펜, 파란 검정 */
+  --pencil:#5C6880;   /* 연필, 보조 글 */
+  --red:   #CF3A2D;   /* 빨간 펜, 정정에만 */
+  --hl:    #FFF1B8;   /* 형광펜, 정답 한 곳에만 */
+  --font: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --hand: "Nanum Pen Script", cursive;
+  --pen: var(--red);  /* signup.js 강조색 */
+  --gutter: 52px;     /* 여백선 왼쪽 공간 */
+
+  /* signup.js가 쓰는 이름 */
+  --card: var(--paper);
+  --muted: var(--pencil);
+  --tint: #EAF0F7;
+  --r-ctl: 8px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper);overflow-x:clip}
+body{font-family:var(--font);color:var(--ink);font-size:17.5px;line-height:1.7;word-break:keep-all;-webkit-text-size-adjust:100%;font-variant-numeric:tabular-nums}
+
+/* 공책: 왼쪽 여백선 하나 */
+.sheet{max-width:680px;margin:0 auto;padding:22px 22px 72px var(--gutter);min-height:100vh;
+  background:linear-gradient(90deg,transparent calc(var(--gutter) - 16px),var(--margin) calc(var(--gutter) - 16px),var(--margin) calc(var(--gutter) - 14.5px),transparent calc(var(--gutter) - 14.5px))}
+
+a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1.5px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:4px}
+b{font-weight:750}
+
+/* 머리줄: 계정 이름과 오답 번호 */
+.top{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:10px;border-bottom:1.5px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:7px;font-weight:800;font-size:17px;letter-spacing:-.3px;text-decoration:none}
+.brand svg{width:19px;height:19px;flex:none}
+.top .no{font-size:15px;color:var(--pencil)}
+
+/* 빨간 펜 */
+.pen{font-family:var(--hand);color:var(--red);font-weight:400;line-height:1.1;letter-spacing:0}
+
+/* 문제 (첫 화면) */
+.q{margin-top:30px}
+.q .lab{font-size:15px;color:var(--pencil)}
+.q h1{margin-top:4px;font-size:30px;line-height:1.38;font-weight:800;letter-spacing:-1px}
+.mine{margin-top:22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mine .lab{font-size:15px;color:var(--pencil)}
+.mine s{font-size:22px;font-weight:700;text-decoration:none;position:relative;padding:0 4px}
+.mine s::after{content:"";position:absolute;left:-4px;right:-6px;top:52%;height:3px;background:var(--red);transform:rotate(-7deg);border-radius:2px}
+.mine .pen{font-size:34px}
+.ans{margin-top:18px;padding:16px 0 4px;border-top:1.5px dashed var(--rule)}
+.ans .lab{font-size:15px;color:var(--pencil)}
+.ans p{margin-top:4px;font-size:20px;line-height:1.6;font-weight:600;letter-spacing:-.4px}
+.ans mark{background:linear-gradient(transparent 58%,var(--hl) 58%);color:inherit;padding:0 2px}
+
+/* 풀이 */
+.sol{margin-top:64px}
+.sol > h2{font-size:23px;line-height:1.4;font-weight:800;letter-spacing:-.6px;padding-bottom:10px;border-bottom:2.5px solid var(--ink)}
+/* 풀이 번호: 공책 색인 탭처럼 */
+.sol > h2 .n{display:table;margin-bottom:10px;padding:4px 12px;border-radius:6px;background:var(--ink);color:var(--paper);font-size:14.5px;font-weight:700;letter-spacing:0}
+.sol > p{margin-top:14px}
+.sol.ref{margin-top:56px}
+.sol.ref > h2{font-size:17px;border-bottom-width:1.5px}
+
+ol.steps{margin-top:6px;list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding:14px 0 14px 34px;border-bottom:1px solid var(--rule);font-size:18px}
+ol.steps li::before{content:counter(s) ".";position:absolute;left:0;top:14px;font-weight:800;color:var(--pencil);width:24px}
+
+.btn{display:inline-flex;align-items:center;min-height:46px;margin-top:10px;padding:0 18px;border-radius:var(--r-ctl);background:var(--ink);color:var(--paper);font-weight:700;font-size:16px;text-decoration:none}
+
+/* 비교표 */
+.tw{margin-top:16px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:16.5px;line-height:1.55}
+th,td{padding:12px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+thead th{border-bottom:1.5px solid var(--ink);font-weight:800;font-size:16.5px}
+tbody th{font-weight:700;color:var(--pencil);font-size:15px;width:21%;padding-left:0}
+
+/* 틀리기 쉬운 곳: 여백에 빨간 펜 */
+.trap{margin-top:56px;position:relative;padding:4px 0 4px 18px;border-left:3px solid var(--red)}
+.trap .pen{display:block;font-size:30px;margin-bottom:4px}
+
+/* 출처 */
+ul.src{margin-top:12px;list-style:none}
+ul.src li{padding:10px 0;border-bottom:1px solid var(--rule)}
+ul.src a{font-weight:700}
+ul.src span{display:block;font-size:14.5px;color:var(--pencil)}
+
+/* 신청 (signup.js가 채움) */
+#signup{margin-top:46px}
+#signup h2{font-size:22px;line-height:1.4;font-weight:800;letter-spacing:-.6px;padding-bottom:8px;border-bottom:1.5px solid var(--ink)}
+#signup > p{margin-top:14px}
+#signup .card{background:transparent;border:0;padding:6px 0 0}
+#signup .su-t{background:var(--tint)}
+#signup .su-b{justify-content:center;width:100%}
+
+footer{margin-top:52px;padding-top:14px;border-top:1px solid var(--rule);color:var(--pencil);font-size:14px;line-height:1.65}
+
+/* 목록(홈) */
+.lead{margin-top:30px}
+.lead h1{font-size:30px;line-height:1.38;font-weight:800;letter-spacing:-1px}
+.lead p{margin-top:10px;color:var(--pencil)}
+ul.idx{margin-top:24px;list-style:none;border-top:1.5px solid var(--ink)}
+ul.idx a{display:grid;grid-template-columns:56px 1fr;gap:4px;padding:16px 0;border-bottom:1px solid var(--rule);text-decoration:none}
+ul.idx .n{color:var(--pencil);font-size:15px;padding-top:3px}
+ul.idx b{display:block;font-size:18.5px;letter-spacing:-.4px;line-height:1.45}
+ul.idx span{display:block;color:var(--pencil);font-size:15px;margin-top:2px}
+
+/* 문서(처리방침) */
+.doc h1{margin-top:30px;font-size:28px;line-height:1.38;font-weight:800;letter-spacing:-.8px}
+.doc h2{margin-top:34px;font-size:19px;font-weight:800;padding-bottom:6px;border-bottom:1.5px solid var(--ink)}
+.doc p,.doc ul{margin-top:12px}
+.doc ul{padding-left:20px}
+
+@media (max-width:420px){
+  :root{--gutter:40px}
+  .sheet{padding-right:18px}
+  .q h1,.lead h1{font-size:27px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+table.lab thead th{white-space:nowrap;width:39.5%}
+thead td{border-bottom:1.5px solid var(--ink)}
+table:not(.lab) thead th{white-space:nowrap}
+td{word-break:keep-all}
+
+/* 점 목록 (순서 없는 항목) */
+ul.dots{margin-top:6px;list-style:none}
+ul.dots li{position:relative;padding:12px 0 12px 22px;border-bottom:1px solid var(--rule);font-size:18px}
+ul.dots li::before{content:"";position:absolute;left:4px;top:1.15em;width:7px;height:7px;border-radius:50%;background:var(--pencil)}
+.sol > p + .tw,.sol > .tw + p,.sol > p + ul,.sol > ul + p{margin-top:12px}
+tbody th:only-child{width:auto}
+
+/* FP 영업노트: 같은 공책, 여백선과 로고만 초록 */
+body.fp{--margin:#9CCBB5}
+
+</style>
 </head>
 <body class="fp">
 <main class="sheet">
   <header class="top">
-    <a class="brand" href="/note/fp/"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="4" width="26" height="32" rx="5" fill="none" stroke="#1F7A55" stroke-width="4.5"/><path d="M15 15 H27 M15 23 H27 M4 12 H11 M4 20 H11 M4 28 H11" stroke="#1F7A55" stroke-width="4.5" stroke-linecap="round"/></svg>FP 영업노트</a>
+    <a class="brand" href="/note/fp/"><svg viewBox="0 0 40 40" width="19" height="19" aria-hidden="true"><rect x="8" y="4" width="26" height="32" rx="5" fill="none" stroke="#1F7A55" stroke-width="4.5"/><path d="M15 15 H27 M15 23 H27 M4 12 H11 M4 20 H11 M4 28 H11" stroke="#1F7A55" stroke-width="4.5" stroke-linecap="round"/></svg>FP 영업노트</a>
     <span class="no">노트 5</span>
   </header>
 
